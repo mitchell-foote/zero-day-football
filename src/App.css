@@ -1,0 +1,23 @@
+.terminal-background {
+  background-color: black;
+  color: limegreen;
+}
+
+.terminal-title {
+  font-size: large;
+  max-width: 50vw;
+}
+
+.terminal-holder {
+  height: 50vh;
+  width: 50vw;
+}
+
+.total-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

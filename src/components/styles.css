@@ -1,0 +1,36 @@
+.terminal-background {
+    background-color: black;
+    color: limegreen;
+}
+
+.terminal-title {
+    font-size: large;
+    max-width: 50vw;
+}
+
+.terminal-holder {
+    height: 50vh;
+    width: 50vw;
+}
+
+.total-page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-parent1 {
+    border-radius: 10px;
+    border: 2px solid limegreen;
+    color: limegreen;
+    display: flex;
+    flex-direction: column;
+    /* height: 35vh; */
+    width: 35vw;
+    padding: 1rem;
+    margin-left: 5rem;
+    font-family: "Courier New", Courier, monospace;
+}
