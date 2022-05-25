@@ -2,6 +2,7 @@ export enum GameState {
     NO_STATE,
     COMMAND_LINE,
     RESTORE,
+    START_UP
 }
 
 export interface GameDataInformation {

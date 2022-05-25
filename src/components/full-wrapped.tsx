@@ -147,6 +147,7 @@ class WrappedZeroDayFootball extends React.Component<WrappedCompProps, WrappedCo
                             <div>{this.generateDiskHealth()}</div>
                             {this.state.gameData.hasSectorScanFix && <div>This disk has been restored! New commands are now available.</div>}
                             {this.state.gameData.hasSectorScanFix && <div>Encryption scheme "cApItAl" detected.</div>}
+                            {this.state.gameData.hasSectorScanFix && <div>Recommend checking revealed codes for decryption clues.</div>}
                         </div>
                     </div>
                 </div>

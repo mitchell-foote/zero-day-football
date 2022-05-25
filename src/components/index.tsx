@@ -13,15 +13,12 @@ interface ZeroDayFootballState {
 }
 
 class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootballState> {
-    state: ZeroDayFootballState = { gameState: GameState.NO_STATE, decodeAttempts: 0 }
-    timesUpdated = 0;
-    componentDidMount() {
-        console.log("Mount");
-        this.timesUpdated++;
-        if (this.timesUpdated === 1) {
-            this.restartSystem()
-        }
+    state: ZeroDayFootballState = { gameState: GameState.START_UP, decodeAttempts: 0 }
 
+    handleStartupClick = () => {
+        this.removeCommandLine(() => {
+            this.restartSystem()
+        })
     }
 
     removeCommandLine = (callback?: () => void) => {
@@ -81,16 +78,22 @@ class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootb
         this.removeCommandLine(() => {
             this.props.clearLines(() => {
                 this.props.writeText({ message: `WARNING!!! Booby trap triggered!`, color: 'red' }, () => {
-                    this.props.writeText({ message: 'Device is activating polymorphic algorithms, code fragments have been encrypted!', color: 'red' }, () => {
-                        let newState = { ...this.props.overallState }
-                        newState.hasLetterFix = false;
-                        newState.hasSectorScanFix = false;
-                        newState.hasTempertureFix = false;
-                        newState.hasSequenceFix = false;
-                        this.props.updateOverallState(newState, () => {
-                            this.props.writeText({ message: 'Codes will need to be rediscovered.', color: 'red' }, () => {
-                                this.goToCommandLine();
-                            })
+                    this.props.writeText({ message: 'Device is activating polymorphic algorithms, and has locked us out of the system!', color: 'red' }, () => {
+                        this.props.writeText({ message: "Now attempting to reboot and restore access", color: 'red' }, () => {
+                            this.props.addLine([
+                                <LoadingHelper
+                                    message='Rebooting...'
+                                    color
+                                    startPercent={0}
+                                    endPercent={100}
+                                    transitionSpeed={1000}
+                                    onFinish={() => {
+                                        this.props.writeText({ message: 'Access restored.' }, () => {
+                                            this.goToCommandLine();
+                                        })
+                                    }}
+                                />
+                            ])
                         })
                     })
                 })
@@ -110,6 +113,30 @@ class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootb
                                     <LoadingHelper
                                         startPercent={0}
                                         endPercent={100}
+                                        message="Decrypting main partition..."
+                                        showPercent
+                                        transitionSpeed={900}
+                                        onFinish={() => { }}
+                                    />,
+                                    <LoadingHelper
+                                        startPercent={0}
+                                        endPercent={100}
+                                        message="Executing data stabilization..."
+                                        showPercent
+                                        transitionSpeed={650}
+                                        onFinish={() => { }}
+                                    />,
+                                    <LoadingHelper
+                                        startPercent={0}
+                                        endPercent={100}
+                                        message="Engaging binary protocols..."
+                                        showPercent
+                                        transitionSpeed={500}
+                                        onFinish={() => { }}
+                                    />,
+                                    <LoadingHelper
+                                        startPercent={0}
+                                        endPercent={100}
                                         color
                                         transitionSpeed={1000}
                                         showPercent
@@ -117,23 +144,51 @@ class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootb
                                         onFinish={() => {
                                             this.props.writeText({ message: "Decryption complete. Downloading final codes now." }, () => {
                                                 let state = { ...this.props.overallState };
-                                                state.hasFinalFragments = true;
+                                                state.hasFinalFragments = false;
                                                 this.props.updateOverallState(state, () => {
                                                     this.props.addLine([
                                                         <LoadingHelper
                                                             startPercent={0}
                                                             endPercent={100}
-                                                            color
+                                                            message="Downloading deactivation code 1..."
+                                                            showPercent
+                                                            transitionSpeed={200}
+                                                            onFinish={() => { }}
+                                                        />,
+                                                        <LoadingHelper
+                                                            startPercent={0}
+                                                            endPercent={100}
+                                                            message="Downloading deactivation code 2..."
+                                                            showPercent
+                                                            transitionSpeed={300}
+                                                            onFinish={() => { }}
+                                                        />,
+                                                        <LoadingHelper
+                                                            startPercent={0}
+                                                            endPercent={100}
+                                                            transitionSpeed={400}
+                                                            message="Downloading deactivation code 3..."
+                                                            showPercent
+                                                            onFinish={() => { }}
+                                                        />,
+                                                        <LoadingHelper
+                                                            startPercent={0}
+                                                            endPercent={100}
                                                             transitionSpeed={500}
                                                             showPercent
-                                                            message={"Downloading..."}
+                                                            message={"Downloading final code..."}
                                                             onFinish={() => {
                                                                 this.props.writeText({ message: "Download complete." }, () => {
-                                                                    setTimeout(() => {
-                                                                        this.props.clearLines(() => {
-                                                                            this.props.addLine(["All codes are now available."]);
-                                                                        })
-                                                                    }, 5000)
+                                                                    let state = { ...this.props.overallState };
+                                                                    state.hasFinalFragments = true;
+                                                                    this.props.updateOverallState(state, () => {
+                                                                        setTimeout(() => {
+                                                                            this.props.clearLines(() => {
+                                                                                this.props.addLine(["All codes are now available."]);
+                                                                            })
+                                                                        }, 5000)
+                                                                    })
+
                                                                 })
                                                             }} />
                                                     ])
@@ -165,33 +220,6 @@ class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootb
                                 this.goToCommandLine(false);
                             })
                         }
-                        break;
-                    }
-                    case 'text': {
-                        this.props.addLine(["line"], () => {
-                            this.props.addLine(['hello'], () => this.goToCommandLine(false))
-                        });
-
-                        break;
-                    }
-                    case 'scroll': {
-                        this.props.writeText({ message: 'Line Line Line Line Line Line Line Line Line Line Line line Line' }, () => {
-                            this.props.addLine(['hello'], () => this.goToCommandLine(false))
-                        })
-                        break;
-                    }
-                    case 'loading': {
-                        this.props.addLine([<LoadingHelper
-                            startPercent={0}
-                            endPercent={100}
-                            color
-                            transitionSpeed={500}
-                            showPercent
-                            message={"Downloading..."}
-                            onFinish={() => {
-                                this.props.addLine(['hello'], () => this.goToCommandLine(false))
-                            }} />
-                        ])
                         break;
                     }
                     case 'decrypt': {
@@ -244,6 +272,7 @@ class ZeroDayFootball extends React.Component<ZeroDayFootballProps, ZeroDayFootb
         return (<div>
             {this.state.gameState === GameState.COMMAND_LINE && <TerminalInputHelper onSumbitCommand={this.handleCommandLineFeedback} />}
             {this.state.gameState === GameState.RESTORE && <ZeroDayFootballRestore {...this.props} doPolymorphicAlgorithim={this.doPolymorphicAlgorithim} onBack={() => this.props.clearLines(() => this.goToCommandLine())} />}
+            {this.state.gameState === GameState.START_UP && <button style={{ backgroundColor: 'black', borderColor: 'limegreen', color: 'limegreen', borderRadius: '0.1rem', padding: '0.5rem' }} onClick={this.handleStartupClick}>Engage System</button>}
         </div>);
     }
 }
