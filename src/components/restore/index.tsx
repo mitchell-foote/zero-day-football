@@ -57,7 +57,9 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
                             onFinish={() => {
                                 this.props.writeText({ message: 'Sector search complete, please select an option from the list below' }, () => {
                                     this.props.writeText({ message: "Selections chosen below will be executed or printed to the terminal" }, () => {
-                                        this.setState({ restoreState: RestoreState.SECTOR_PUZZLE })
+                                        this.props.addLine([<div>This system recommends searching for <i>Heliantheae Helianthus</i></div>], () => {
+                                            this.setState({ restoreState: RestoreState.SECTOR_PUZZLE })
+                                        })
                                     })
                                 })
                             }} />
@@ -310,7 +312,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
         let options: Types.OptionChoice[] = [
             {
                 name: "Sector 231",
-                description: "Text file: Augruy Helper.bat",
+                description: "Text file: Dandilion.bat",
                 action: () => {
                     this.displaySectorText([
                         "-----------------",
@@ -369,7 +371,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 46632",
-                description: "Binary file: 101101.io",
+                description: "Binary file: koala.io",
                 action: () => {
                     this.displaySectorText([
                         "-----------------",
@@ -383,7 +385,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 88392",
-                description: "Binary file: blackmail.io",
+                description: "Binary file: aspen.io",
                 action: () => {
                     this.displaySectorText([
                         "-----------------",
@@ -405,7 +407,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 2311",
-                description: "Text file: exFault.bat",
+                description: "Text file: kiwi.bat",
                 action: () => {
                     this.displaySectorText([
                         "-----------------",
@@ -421,7 +423,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 33092",
-                description: "Text file: 9985745.bat",
+                description: "Text file: clownfish.bat",
                 action: () => {
                     this.displaySectorText([
                         "-----------------",
@@ -437,7 +439,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 0092",
-                description: "Corrupted file, unknown type or name",
+                description: "Binary file: zebra.io",
                 action: () => {
                     if (this.props.overallState.hardMode) {
                         this.props.doPolymorphicAlgorithim()
@@ -454,7 +456,7 @@ class ZeroDayFootballRestore extends React.Component<ZeroDayFootballRestoreProps
             },
             {
                 name: "Sector 0101",
-                description: "Corrupted file, unknown type or name",
+                description: "Shell file: sunflower.sh",
                 action: () => {
                     this.removeCommandLine(() => {
                         this.props.clearLines(() => {
